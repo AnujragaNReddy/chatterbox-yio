@@ -1,0 +1,168 @@
+/* ============================================================
+   Theme system: every theme defines the same set of CSS custom
+   properties. Components only ever read var(--token), never a
+   hard-coded color, so switching [data-theme] restyles the app.
+   ============================================================ */
+
+:root {
+  --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* ---------- 1. Classic (WhatsApp-style green) ---------- */
+[data-theme='classic'] {
+  --bg-app: #efe9df;
+  --bg-app-image: none;
+  --bg-sidebar: #ffffff;
+  --bg-panel-header: #f0f2f5;
+  --bg-chat: #efeae2;
+  --bg-chat-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cg fill='%23d9d3c7' fill-opacity='0.4'%3E%3Ccircle cx='10' cy='10' r='1.5'/%3E%3Ccircle cx='40' cy='30' r='1.5'/%3E%3Ccircle cx='70' cy='15' r='1.5'/%3E%3Ccircle cx='25' cy='60' r='1.5'/%3E%3Ccircle cx='60' cy='65' r='1.5'/%3E%3C/g%3E%3C/svg%3E");
+  --bg-bubble-out: #d9fdd3;
+  --bg-bubble-in: #ffffff;
+  --text-bubble-out: #111b21;
+  --text-bubble-in: #111b21;
+  --text-primary: #111b21;
+  --text-secondary: #667781;
+  --accent: #00a884;
+  --accent-strong: #008069;
+  --accent-contrast: #ffffff;
+  --border: #e9edef;
+  --input-bg: #ffffff;
+  --online-dot: #00a884;
+  --unread-badge: #25d366;
+  --link: #027eb5;
+  --scrollbar: #c8c8c8;
+}
+
+/* ---------- 2. Midnight (dark / OLED) ---------- */
+[data-theme='midnight'] {
+  --bg-app: #0b141a;
+  --bg-app-image: none;
+  --bg-sidebar: #111b21;
+  --bg-panel-header: #202c33;
+  --bg-chat: #0b141a;
+  --bg-chat-image: none;
+  --bg-bubble-out: #005c4b;
+  --bg-bubble-in: #202c33;
+  --text-bubble-out: #e9edef;
+  --text-bubble-in: #e9edef;
+  --text-primary: #e9edef;
+  --text-secondary: #8696a0;
+  --accent: #00a884;
+  --accent-strong: #00c298;
+  --accent-contrast: #ffffff;
+  --border: #222d34;
+  --input-bg: #2a3942;
+  --online-dot: #00d9a3;
+  --unread-badge: #00a884;
+  --link: #53bdeb;
+  --scrollbar: #374045;
+}
+
+/* ---------- 3. Aurora (glass / gradient) ---------- */
+[data-theme='aurora'] {
+  --bg-app: #1a1233;
+  --bg-app-image: linear-gradient(135deg, #1a1233 0%, #2d1b4e 50%, #3a1c52 100%);
+  --bg-sidebar: rgba(30, 20, 55, 0.72);
+  --bg-panel-header: rgba(45, 27, 78, 0.65);
+  --bg-chat: transparent;
+  --bg-chat-image: radial-gradient(circle at 20% 20%, rgba(168, 85, 247, 0.18), transparent 45%),
+    radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.16), transparent 45%);
+  --bg-bubble-out: linear-gradient(135deg, #8b5cf6, #ec4899);
+  --bg-bubble-in: rgba(255, 255, 255, 0.08);
+  --text-bubble-out: #ffffff;
+  --text-bubble-in: #f1e9ff;
+  --text-primary: #f4ecff;
+  --text-secondary: #b9a6db;
+  --accent: #c084fc;
+  --accent-strong: #a855f7;
+  --accent-contrast: #ffffff;
+  --border: rgba(255, 255, 255, 0.08);
+  --input-bg: rgba(255, 255, 255, 0.08);
+  --online-dot: #34d399;
+  --unread-badge: #ec4899;
+  --link: #93c5fd;
+  --scrollbar: rgba(255, 255, 255, 0.2);
+  --glass-blur: blur(16px);
+}
+
+/* ---------- 4. Retro (Y2K messenger blue) ---------- */
+[data-theme='retro'] {
+  --bg-app: #dbeafe;
+  --bg-app-image: none;
+  --bg-sidebar: #f0f6ff;
+  --bg-panel-header: linear-gradient(180deg, #4f9cf5, #2f6fd1);
+  --bg-chat: #eaf3ff;
+  --bg-chat-image: none;
+  --bg-bubble-out: #cfe8ff;
+  --bg-bubble-in: #ffffff;
+  --text-bubble-out: #10233d;
+  --text-bubble-in: #10233d;
+  --text-primary: #10233d;
+  --text-secondary: #4b6b93;
+  --accent: #2f6fd1;
+  --accent-strong: #1e4f9c;
+  --accent-contrast: #ffffff;
+  --border: #bcd6f5;
+  --input-bg: #ffffff;
+  --online-dot: #35c759;
+  --unread-badge: #ff9800;
+  --link: #1e4f9c;
+  --scrollbar: #a9c8ee;
+}
+
+/* ---------- 5. Neon (cyberpunk) ---------- */
+[data-theme='neon'] {
+  --bg-app: #05050a;
+  --bg-app-image: none;
+  --bg-sidebar: #0b0b14;
+  --bg-panel-header: #0f0f1c;
+  --bg-chat: #060610;
+  --bg-chat-image: linear-gradient(180deg, rgba(0, 255, 200, 0.03), transparent 200px);
+  --bg-bubble-out: #10222a;
+  --bg-bubble-in: #16101f;
+  --text-bubble-out: #7dfcd8;
+  --text-bubble-in: #e6d6ff;
+  --text-primary: #eafaff;
+  --text-secondary: #7a7fa6;
+  --accent: #00f5d4;
+  --accent-strong: #ff2bd6;
+  --accent-contrast: #05050a;
+  --border: #1c1c2e;
+  --input-bg: #10101c;
+  --online-dot: #00f5d4;
+  --unread-badge: #ff2bd6;
+  --link: #00e5ff;
+  --scrollbar: #2a2a44;
+  --neon-glow-1: #00f5d4;
+  --neon-glow-2: #ff2bd6;
+}
+
+/* ---------- 6. Sunset (warm gradient) ---------- */
+[data-theme='sunset'] {
+  --bg-app: #2b1418;
+  --bg-app-image: linear-gradient(160deg, #3a1c1f 0%, #6b2a3a 45%, #b3552f 100%);
+  --bg-sidebar: rgba(43, 20, 24, 0.85);
+  --bg-panel-header: rgba(80, 33, 40, 0.7);
+  --bg-chat: transparent;
+  --bg-chat-image: radial-gradient(circle at 30% 10%, rgba(255, 173, 96, 0.18), transparent 50%);
+  --bg-bubble-out: linear-gradient(135deg, #ff8a5b, #ff5e7e);
+  --bg-bubble-in: rgba(255, 255, 255, 0.09);
+  --text-bubble-out: #2b1418;
+  --text-bubble-in: #ffe9df;
+  --text-primary: #fff1ea;
+  --text-secondary: #e0b3a8;
+  --accent: #ff8a5b;
+  --accent-strong: #ff5e7e;
+  --accent-contrast: #2b1418;
+  --border: rgba(255, 255, 255, 0.1);
+  --input-bg: rgba(255, 255, 255, 0.08);
+  --online-dot: #7ee787;
+  --unread-badge: #ff5e7e;
+  --link: #ffd08a;
+  --scrollbar: rgba(255, 255, 255, 0.22);
+  --glass-blur: blur(14px);
+}
