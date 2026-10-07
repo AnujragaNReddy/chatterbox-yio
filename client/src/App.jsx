@@ -35,6 +35,12 @@ function AppRoutes() {
           </RequireAuth>
         }
       />
+      {/* Where Yolo-Auth sends the browser back. AuthProvider reads the
+          code out of the fragment on mount and clears it; by the time this
+          renders there is nothing left to do but move along. The catch-all
+          below would cover it, but a named route makes the contract with the
+          auth service visible rather than incidental. */}
+      <Route path="/auth/done" element={<Navigate to="/chat" replace />} />
       <Route path="*" element={<Navigate to="/chat" replace />} />
     </Routes>
   );

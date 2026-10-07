@@ -6,7 +6,7 @@ import ThemeSwitcher from '../components/common/ThemeSwitcher.jsx';
 import '../components/Auth/Auth.css';
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { login, signInWithGoogle, googleAvailable, googleError } = useAuth();
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -49,10 +49,23 @@ export default function LoginPage() {
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
           {error && <p className="error-text">{error}</p>}
+          {googleError && <p className="error-text">{googleError}</p>}
           <button className="btn auth-submit" disabled={busy} type="submit">
             {busy ? 'Logging in...' : 'Log In'}
           </button>
         </form>
+
+        {/* Offered alongside the username and password, not instead of them.
+            Existing accounts keep working exactly as before; the server takes
+            either kind of token and resolves both to the same local user. */}
+        {googleAvailable && (
+          <>
+            <div className="auth-divider"><span>or</span></div>
+            <button className="btn auth-google" type="button" onClick={signInWithGoogle}>
+              Continue with Google
+            </button>
+          </>
+        )}
 
         <div className="auth-switch">
           New here?

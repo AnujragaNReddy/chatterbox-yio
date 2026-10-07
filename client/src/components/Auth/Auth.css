@@ -71,3 +71,28 @@
   top: 16px;
   right: 16px;
 }
+
+/* ---------- Google sign-in, beside the existing form ---------- */
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 18px 0 14px;
+  color: var(--text-muted, #8b91a1);
+  font-size: 12px;
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border, #272b36);
+}
+.btn.auth-google {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--border, #272b36);
+  color: inherit;
+}
+.btn.auth-google:hover { border-color: #4a4a7a; }

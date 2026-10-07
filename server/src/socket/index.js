@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import db from '../db.js';
 import { JWT_SECRET } from '../config.js';
+import { verifyYoloToken, yoloAuthEnabled } from '../lib/yoloAuth.js';
+import { resolveLocalUser } from '../lib/yoloUser.js';
 import { toPublicMessage, assertMember } from '../routes/messages.js';
 
 function roomName(conversationId) {
@@ -19,16 +21,35 @@ function setPresence(userId, isOnline) {
 }
 
 export function attachSocket(io) {
-  io.use((socket, next) => {
+  // Same dual acceptance as the HTTP middleware. Without it, a Google
+  // sign-in would authenticate every REST call and then fail to open a
+  // socket, which is the half of the app that makes it a chat app - messages
+  // would send but never arrive, and the connection would retry forever.
+  io.use(async (socket, next) => {
+    const token = socket.handshake.auth?.token;
+    if (!token) return next(new Error('Missing auth token'));
+
     try {
-      const token = socket.handshake.auth?.token;
-      if (!token) return next(new Error('Missing auth token'));
-      const payload = jwt.verify(token, JWT_SECRET);
+      // Pinned to HS256 beside an RS256 verifier, for the same reason as the
+      // HTTP middleware.
+      const payload = jwt.verify(token, JWT_SECRET, { algorithms: ['HS256'] });
       socket.userId = payload.id;
       socket.username = payload.username;
-      next();
+      return next();
     } catch {
-      next(new Error('Invalid auth token'));
+      // Not one of ours; it may be a Yolo-Auth token.
+    }
+
+    if (!yoloAuthEnabled()) return next(new Error('Invalid auth token'));
+
+    try {
+      const claims = await verifyYoloToken(token);
+      const user = resolveLocalUser(claims);
+      socket.userId = user.id;
+      socket.username = user.username;
+      return next();
+    } catch (error) {
+      return next(new Error(error.message || 'Invalid auth token'));
     }
   });
 
